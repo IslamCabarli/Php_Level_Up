@@ -3,6 +3,6 @@ class TaskController
 {
     public function index()
     {
-            echo '<h1>' .   "Task Page" .  "</h1>\n";
+             require_once '../app/View/tasks/index.php' ;
     }
 }

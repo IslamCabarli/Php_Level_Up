@@ -1,4 +1,6 @@
 <?php
-require_once '../app/Controller/TaskController.php';
-$task = new TaskController();
-$task->index();
+$uri = $_SERVER['REQUEST_URI'];
+require_once '../core/Router.php';
+$router = new Router();
+$router->handle($uri);
+

@@ -16,10 +16,6 @@ class Task
         $task = $this->pdo->prepare("Select * FROM tasks");
         $task->execute();
         return $task->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
     }
     public function create($title, $description)
     {

@@ -3,5 +3,6 @@
 <?php
 
 foreach ($tasks as $t) {
-    echo "<li>" . $t['title']  . " ==>" .  $t['description'] . "</li>";
+    echo "<li>" . $t['title']  . " ==>" .  $t['description']  . "  " .   "<button>" ."-" . "</button>" . "</li>";
+
 }

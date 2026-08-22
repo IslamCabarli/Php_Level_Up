@@ -24,8 +24,6 @@ class Router
             else if ( $uri == '/tasks/delete' && $method == 'GET' )
             {
                 $id = $_GET['id'];
-                require_once __DIR__ . '/../app/Controller/TaskController.php';
-                $task = new TaskController();
                 return $task->delete($id);
             }
             else if ( $uri =='/tasks/edit' && $method == 'GET' )
@@ -42,6 +40,12 @@ class Router
                 $description = $_POST['description'];
                 $title = $_POST['title'];
                 return $task->update($id,$title,$description);
+            }
+            else
+            {
+                http_response_code(404);
+                require_once __DIR__ . '/../app/View/Error/404.php';
+                die();
             }
 
     }

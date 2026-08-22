@@ -31,4 +31,20 @@ class Task
         $task->bindParam(':id', $id);
         $task->execute();
     }
+    public function edit($id)
+    {
+        $task = $this->pdo->prepare("SELECT * FROM tasks WHERE id = :id");
+        $task->bindParam(':id', $id);
+        $task->execute();
+        return $task->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update($id, $title, $description)
+    {
+        $task = $this->pdo->prepare('UPDATE tasks SET title = :title,description = :description WHERE id = :id ');
+        $task->bindParam(':id', $id);
+        $task->bindParam(':title', $title);
+        $task->bindParam(':description', $description);
+        $task->execute();
+    }
 }

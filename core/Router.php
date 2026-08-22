@@ -27,7 +27,24 @@ class Router
                 $task = new TaskController();
                 return $task->delete($id);
             }
+            else if ( $uri =='/tasks/edit' && $method == 'GET' )
+            {
+                $id = $_GET['id'];
+                require_once __DIR__ . '/../app/Controller/TaskController.php';
+                $task = new TaskController();
+                return $task->edit($id);
+            }
 
+
+            else if ( $uri == '/tasks/update' && $method == 'POST' )
+            {
+                $id = $_POST['id'];
+                $description = $_POST['description'];
+                $title = $_POST['title'];
+                require_once __DIR__ . '/../app/Controller/TaskController.php';
+                $task = new TaskController();
+                return $task->update($id,$title,$description);
+            }
 
     }
 }

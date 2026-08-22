@@ -3,6 +3,10 @@
 <?php
 
 foreach ($tasks as $t) {
-    echo "<li>" . $t['title']  . " ==>" .  $t['description']  . "  " .   "<button>" ."-" . "</button>" . "</li>";
+    $id = $t['id'];
+    echo "<li>" . $t['title']  . " ==>" .  $t['description']  . "  " .
+            "<a href='/PHP_Review/Public/tasks/delete?id=$id'>" ."DELETE" . "</a>" . "</li>"
+
+    ;
 
 }

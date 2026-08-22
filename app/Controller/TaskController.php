@@ -22,4 +22,11 @@ class TaskController
     $task->create($title, $description);
     header('Location:/PHP_Review/Public/tasks');
     }
+
+    public function delete($id)
+    {
+        $task = new Task();
+        $task->delete($id);
+        header('Location:/PHP_Review/Public/tasks');
+    }
 }

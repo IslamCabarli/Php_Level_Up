@@ -20,6 +20,14 @@ class Router
                 $task = new TaskController();
                 return $task->store();
             }
+            else if ( $uri == '/tasks/delete' && $method == 'GET' )
+            {
+                $id = $_GET['id'];
+                require_once __DIR__ . '/../app/Controller/TaskController.php';
+                $task = new TaskController();
+                return $task->delete($id);
+            }
+
 
     }
 }

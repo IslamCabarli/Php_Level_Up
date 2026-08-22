@@ -24,4 +24,11 @@ class Task
         $task->bindParam(':description', $description);
         $task->execute();
     }
+
+    public function delete($id)
+    {
+        $task = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id");
+        $task->bindParam(':id', $id);
+        $task->execute();
+    }
 }

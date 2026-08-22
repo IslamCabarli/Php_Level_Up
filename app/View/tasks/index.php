@@ -8,4 +8,7 @@ foreach ($tasks as $t) {
             "<a href='/PHP_Review/Public/tasks/delete?id=$id'>" ."DELETE" . "</a>" . "</li>" .
             "<a href='/PHP_Review/Public/tasks/edit?id=$id'>" . "UPDATE" . "</a>" . "</li>";
 
+    echo "<br>";
+    echo "<br>";
 }
+    echo "<a href='/PHP_Review/Public/tasks/create'>NEW TASK<a/>";

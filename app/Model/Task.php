@@ -1,17 +1,28 @@
 <?php
+require_once  __DIR__ . "/../../core/Database.php";
 class Task
 {
-    public array $tasks = [
-        'Learn Php' => 'For Future',
-        'Learn MVC'=>'For Job',
-        'Build Project'=>'For Legacy'
-    ];
+
+    public $pdo;
+    public function __construct()
+    {
+        $db = new Database();
+
+        $this->pdo = $db->getPDO();
+    }
+
     public function getTasks()
     {
-        return $this->tasks;
+        $task = $this->pdo->prepare("Select * FROM tasks");
+        $task->execute();
+        return $task->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
     }
     public function create($title, $description)
     {
-        $this->tasks[$title] = $description;
+
     }
 }

@@ -2,6 +2,6 @@
 
 <?php
 
-foreach ($tasks as $task) {
-    echo '<li>' . $task . '</li>';
+foreach ($tasks as $t) {
+    echo "<li>" . $t['title']  . " ==>" .  $t['description'] . "</li>";
 }

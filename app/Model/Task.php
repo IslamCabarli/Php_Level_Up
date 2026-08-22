@@ -2,8 +2,7 @@
 require_once  __DIR__ . "/../../core/Database.php";
 class Task
 {
-
-    public $pdo ;
+    public $pdo;
     public function __construct()
     {
         $db = new Database();

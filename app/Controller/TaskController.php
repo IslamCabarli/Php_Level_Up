@@ -17,19 +17,34 @@ class TaskController
 
     public function store() :void
     {
+    $errors = [];
     $title = trim($_POST['title']);
     $description = trim($_POST['description']);
-    if (empty($title) ||  empty($description)){
-        http_response_code(400);
-        $error = "Please enter title and description";
-        require_once __DIR__ . '/../View/tasks/create.php';
-    }
-
-    else if (strlen($title)<=3 || strlen($description)<=5)
+    if (empty($title))
     {
         http_response_code(400);
-        $error = "Title must be up 3 and Description mus be up to 5 characters";
-        require_once __DIR__ . "/../View/tasks/create.php";
+        array_push($errors, "Please enter title");
+    }
+    if (empty($description))
+    {
+        http_response_code(400);
+        array_push($errors, "Please enter description");
+
+    }
+
+    if (strlen($title)<=3)
+    {
+        http_response_code(400);
+        array_push($errors, "Title must be up 3 characters");
+    }
+    if (strlen($description)<=5)
+    {
+        http_response_code(400);
+        array_push($errors, "Description must be up 5 characters");
+
+    }
+    if (!empty($errors)){
+        require_once __DIR__ . '/../View/tasks/create.php';
     }
     else
     {
@@ -37,8 +52,6 @@ class TaskController
         $task->create($title, $description);
         header('Location:/PHP_Review/Public/tasks');
     }
-
-
     }
 
     public function delete($id)

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../Model/Task.php';
 class TaskController
 {
-    public function index()
+    public function index(): void
     {
         $task = new Task();
         $tasks = $task->getTasks();
@@ -10,18 +10,35 @@ class TaskController
 
     }
 
-    public function create()
+    public function create() :void
     {
         require_once __DIR__ . '/../View/tasks/create.php';
     }
 
-    public function store()
+    public function store() :void
     {
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $task = new Task();
-    $task->create($title, $description);
-    header('Location:/PHP_Review/Public/tasks');
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+    if (empty($title) ||  empty($description)){
+        http_response_code(400);
+        $error = "Please enter title and description";
+        require_once __DIR__ . '/../View/tasks/create.php';
+    }
+
+    else if (strlen($title)<=3 || strlen($description)<=5)
+    {
+        http_response_code(400);
+        $error = "Title must be up 3 and Description mus be up to 5 characters";
+        require_once __DIR__ . "/../View/tasks/create.php";
+    }
+    else
+    {
+        $task = new Task();
+        $task->create($title, $description);
+        header('Location:/PHP_Review/Public/tasks');
+    }
+
+
     }
 
     public function delete($id)

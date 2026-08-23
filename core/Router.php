@@ -5,7 +5,9 @@ class Router
     public function handle($uri, $method)
     {
         require_once __DIR__ . '/../app/Controller/TaskController.php';
+        require_once __DIR__ . '/../app/COntroller/AuthController.php';
          $task = new TaskController();
+        $user = new AuthController();
 
             if ( $uri == '/tasks' && $method == 'GET' )
             {
@@ -60,6 +62,15 @@ class Router
             else if ( $uri == '/session/destroy' && $method == 'GET' )
             {
                 session_destroy();
+            }
+
+            else if ( $uri == '/auth/register' && $method == 'GET' )
+            {
+                require_once __DIR__ . '/../app/View/auth/register.php';
+            }
+            else if ( $uri == '/auth/register' && $method == 'POST' )
+            {
+                return $user->register();
             }
 
             else

@@ -81,5 +81,8 @@
         public function logout()
         {
 
+            unset($_SESSION['user_id']);
+            header('Location:/PHP_Review/Public/tasks');
+            exit;
         }
     }

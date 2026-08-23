@@ -1,4 +1,4 @@
-<?php?>
+
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -124,3 +124,11 @@
 
 </body>
 </html>
+<?php
+    if (isset($errors)){
+        foreach ($errors as $error){
+            echo $error;
+            echo "<br />";
+        }
+    }
+?>

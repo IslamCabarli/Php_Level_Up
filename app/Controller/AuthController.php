@@ -5,13 +5,40 @@
 
         public function register()
         {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
+            $errors = [];
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
             $password = $_POST['password'];
+            if($name == "")
+            {
+                $errors[] =("Name cannot be empty");
+            }
+            else if(strlen($name) <3) {
+                $errors[] = ("Name cannot be less than 3");
+            }
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
+            {
+                $errors[] =("Wrong email format");
+            }
+
+            if ($password == "")
+            {
+                $errors[] =("Password cannot be empty");
+            }
+
+
+            else if (strlen($password) <8 )
+            {
+                $errors[] =("Password cannot be less than 8");
+            }
+            if(!empty($errors)){
+                require_once __DIR__ . '/../View/auth/register.php';
+            }
+            else{
             $user = new User();
             $user->register($name, $email, $password);
             header('Location:/PHP_Review/Public/tasks');
-
+            }
         }
 
         public function login()

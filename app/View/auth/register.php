@@ -99,17 +99,16 @@
 
         <div class="form-group">
             <label for="name">Ad Soyad</label>
-            <input type="text" id="name" name="name" placeholder="Adınızı daxil edin" required>
+            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($_POST['name'] ?? '') ?>"  placeholder="Adınızı daxil edin">
         </div>
-
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Emailinizi daxil edin" required>
+            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($_POST['email'] ?? '') ?>" placeholder="Emailinizi daxil edin">
         </div>
 
         <div class="form-group">
             <label for="password">Şifrə</label>
-            <input type="password" id="password" name="password" placeholder="Şifrənizi daxil edin" required>
+            <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($_POST['password'] ?? '') ?>" placeholder="Şifrənizi daxil edin">
         </div>
 
         <button type="submit">Qeydiyyatdan keç</button>

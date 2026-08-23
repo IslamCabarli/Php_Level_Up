@@ -20,9 +20,12 @@
             }
 
 
-        public function findByEmail()
+        public function findByEmail($email)
         {
-
+            $user = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
+            $user->bindParam(':email', $email);
+            $user->execute();
+            return $user->fetch(PDO::FETCH_ASSOC);
         }
 
     }

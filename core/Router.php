@@ -41,6 +41,27 @@ class Router
                 $title = $_POST['title'];
                 return $task->update($id,$title,$description);
             }
+
+            else if ( $uri == '/session/set' && $method == 'GET' )
+            {
+
+                $_SESSION['id'] = 1;
+                $_SESSION['name'] = 'Namiq';
+
+            }
+
+            else if ( $uri == '/session' && $method == 'GET' )
+            {
+                $id = $_SESSION['id'];
+                $name = $_SESSION['name'];
+                echo $name . $id;
+            }
+
+            else if ( $uri == '/session/destroy' && $method == 'GET' )
+            {
+                session_destroy();
+            }
+
             else
             {
                 http_response_code(404);

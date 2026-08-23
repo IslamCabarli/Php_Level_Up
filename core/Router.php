@@ -72,6 +72,14 @@ class Router
             {
                 return $user->register();
             }
+            else if ( $uri == '/auth/login' && $method == 'GET' )
+            {
+                require_once __DIR__ . '/../app/View/auth/login.php';
+            }
+            else if ( $uri == '/auth/login' && $method == 'POST' )
+            {
+                return $user->login();
+            }
 
             else
             {

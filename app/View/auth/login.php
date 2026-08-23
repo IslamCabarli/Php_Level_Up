@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qeydiyyat</title>
+    <title>Daxil ol</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +20,7 @@
             min-height: 100vh;
         }
 
-        .register-container {
+        .login-container {
             background: #fff;
             padding: 30px 40px;
             border-radius: 8px;
@@ -47,7 +46,6 @@
             color: #555;
         }
 
-        input[type="text"],
         input[type="email"],
         input[type="password"] {
             width: 100%;
@@ -78,13 +76,13 @@
             background-color: #45a049;
         }
 
-        .login-link {
+        .register-link {
             text-align: center;
             margin-top: 15px;
             font-size: 14px;
         }
 
-        .login-link a {
+        .register-link a {
             color: #4CAF50;
             text-decoration: none;
         }
@@ -92,42 +90,37 @@
 </head>
 <body>
 
-<div class="register-container">
-    <h2>Qeydiyyatdan keç</h2>
+<div class="login-container">
+    <h2>Daxil ol</h2>
 
-    <form action="/PHP_Review/Public/auth/register" method="POST">
+    <form action="/PHP_Review/Public/auth/login" method="POST">
 
-        <div class="form-group">
-            <label for="name">Ad Soyad</label>
-            <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($_POST['name'] ?? '') ?>"  placeholder="Adınızı daxil edin">
-        </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($_POST['email'] ?? '') ?>" placeholder="Emailinizi daxil edin">
+            <input type="email" id="email" name="email" placeholder="Emailinizi daxil edin" required>
         </div>
 
         <div class="form-group">
             <label for="password">Şifrə</label>
-            <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($_POST['password'] ?? '') ?>" placeholder="Şifrənizi daxil edin">
+            <input type="password" id="password" name="password" placeholder="Şifrənizi daxil edin" required>
         </div>
 
-        <button type="submit">Qeydiyyatdan keç</button>
+        <button type="submit">Daxil ol</button>
 
     </form>
 
-    <div class="login-link">
-        Artıq hesabınız var? <a href="/PHP_Review/Public/auth/login">Daxil ol</a>
+    <div class="register-link">
+        Hesabınız yoxdur? <a href="register.php">Qeydiyyatdan keç</a>
     </div>
 
 </div>
-
 </body>
 </html>
 <?php
-    if (isset($errors)){
-        foreach ($errors as $error){
+    if(!empty($errors)){
+        foreach ($errors as $error)
+        {
             echo $error;
-            echo "<br />";
         }
     }
 ?>

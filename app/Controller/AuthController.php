@@ -54,7 +54,28 @@
 
         public function login()
         {
+            $errors = [];
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+            $user = new User();
+            $existingUser = $user->findByEmail($email);
+            if($existingUser){
+                if(password_verify($password, $existingUser['password'])){
+                    $_SESSION['user_id'] = $existingUser['id'];
+                    header('Location:/PHP_Review/Public/tasks');
+                    exit;
+                }
+                else {
+                    $errors[] = "Invalid email or password";
+                }
 
+            }
+            else{
+                $errors[] = "Invalid email or password";
+            }
+            if(!empty($errors)){
+                require_once __DIR__ . '/../View/auth/login.php';
+            }
         }
 
         public function logout()

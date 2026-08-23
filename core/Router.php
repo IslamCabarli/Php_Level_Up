@@ -9,6 +9,11 @@ class Router
          $task = new TaskController();
         $user = new AuthController();
 
+        if (str_starts_with($uri, '/tasks') && !isset($_SESSION['user_id'])) {
+            header('Location: /PHP_Review/Public/auth/login');
+            exit;
+        }
+
             if ( $uri == '/tasks' && $method == 'GET' )
             {
 
@@ -42,26 +47,6 @@ class Router
                 $description = $_POST['description'];
                 $title = $_POST['title'];
                 return $task->update($id,$title,$description);
-            }
-
-            else if ( $uri == '/session/set' && $method == 'GET' )
-            {
-
-                $_SESSION['id'] = 1;
-                $_SESSION['name'] = 'Namiq';
-
-            }
-
-            else if ( $uri == '/session' && $method == 'GET' )
-            {
-                $id = $_SESSION['id'];
-                $name = $_SESSION['name'];
-                echo $name . $id;
-            }
-
-            else if ( $uri == '/session/destroy' && $method == 'GET' )
-            {
-                session_destroy();
             }
 
             else if ( $uri == '/auth/register' && $method == 'GET' )

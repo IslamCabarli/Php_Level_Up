@@ -81,6 +81,11 @@ class Router
                 return $user->login();
             }
 
+            else if ( $uri == '/auth/logout' && $method == 'GET' )
+            {
+                return $user->logout();
+            }
+
             else
             {
                 http_response_code(404);

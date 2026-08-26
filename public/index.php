@@ -7,7 +7,10 @@
         echo "Welcome to the default index route!";
     });
     $router->get('/tasks', [TaskController::class, 'index']);
-    $router->post('/tasks/create', [TaskController::class, 'create']);
+    $router->get('/tasks/create', [TaskController::class, 'create']);
+    $router->post('/tasks', [TaskController::class, 'store']);
+    $router->get('/tasks/edit',[TaskController::class, 'edit']);
+    $router->post('/tasks/update', [TaskController::class, 'update']);
 
 
     $router->dispatch();

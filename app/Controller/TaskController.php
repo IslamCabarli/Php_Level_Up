@@ -61,13 +61,13 @@ class TaskController
         header('Location:/PHP_Review/Public/tasks');
     }
 
-    public function edit($id)
+    public function edit($id): void
     {
         $tasks = new Task();
         $task = $tasks->edit($id);
         require_once __DIR__ . '/../View/tasks/edit.php';
     }
-    public function update($id, $title, $description)
+    public function update($id, $title, $description): void
     {
         $task = new Task();
         $task->update($id, $title, $description);

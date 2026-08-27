@@ -67,10 +67,12 @@ class TaskController
         $task = $tasks->edit($id);
         require_once __DIR__ . '/../View/tasks/edit.php';
     }
-    public function update($id, $title, $description): void
+    public function update($id): void
     {
+        $title = trim($_POST['title']);
+        $description = trim($_POST['description']);
         $task = new Task();
-        $task->update($id, $title, $description);
+        $task->update($id,$title, $description);
         header('Location:/PHP_Review/Public/tasks');
     }
 

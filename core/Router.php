@@ -42,7 +42,14 @@ class Router
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 
         foreach ($this->routes as $route) {
-            if ($route['path'] == $requestUri && $route['method'] === $requestMethod) {
+            $routePath = preg_replace(
+                '#\{[^}]+\}#',
+                '([^/]+)',
+                $route['path']
+            );
+
+            $pattern = '#^' . $routePath . '$#';
+            if ( $route['method'] === $requestMethod && preg_match($pattern, $requestUri, $matches)) {
                 $handler = $route['handler'];
 
                 if (is_callable($handler)) {
@@ -53,7 +60,14 @@ class Router
                 if (is_array($handler)) {
                     [$controller, $method] = $handler;
                     $controllerInstance = new $controller();
-                    $controllerInstance->$method();
+                    if(isset($matches[1])){
+                        $controllerInstance->$method($matches[1]);
+                    }
+                    else
+                    {
+                        $controllerInstance->$method();
+                    }
+
                     return;
                 }
             }

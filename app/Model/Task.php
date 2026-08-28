@@ -12,7 +12,11 @@ class Task
 
     public function getTasks()
     {
-        $task = $this->pdo->prepare("Select * FROM tasks");
+        $task = $this->pdo->prepare(
+            "SELECT * FROM tasks WHERE user_id = :user_id"
+        );
+
+        $task->bindParam(':user_id', $userId);
         $task->execute();
         return $task->fetchAll(PDO::FETCH_ASSOC);
     }

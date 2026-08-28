@@ -45,12 +45,13 @@ class Task
         return $task->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $title, $description): void
+    public function update($id, $title, $description, $userID): void
     {
-        $task = $this->pdo->prepare('UPDATE tasks SET title = :title,description = :description WHERE id = :id ');
+        $task = $this->pdo->prepare('UPDATE tasks SET title = :title,description = :description WHERE id = :id and user_id = :user_id');
         $task->bindParam(':id', $id);
         $task->bindParam(':title', $title);
         $task->bindParam(':description', $description);
+        $task->bindParam(':user_id', $userID);
         $task->execute();
     }
 }

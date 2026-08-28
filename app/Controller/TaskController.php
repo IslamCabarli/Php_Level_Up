@@ -87,11 +87,21 @@ class TaskController
     }
     public function update($id): void
     {
+        $userId = $_SESSION['user_id'];
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);
         $task = new Task();
-        $task->update($id,$title, $description);
+        $updated = $task->update($id,$title, $description, $userId);
+
+        if (!$updated)
+        {
+            http_response_code(403);
+            echo "You are not allowed to update this task";
+            exit;
+        }
+
         header('Location:/PHP_Review/Public/tasks');
+        exit;
     }
 
 }

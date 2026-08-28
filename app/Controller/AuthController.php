@@ -3,7 +3,7 @@
     class AuthController
     {
 
-        public function register()
+        public function register(): void
         {
             $errors = [];
             $name = trim($_POST['name']);

@@ -2,14 +2,14 @@
 require_once __DIR__ . '/../Model/Task.php';
 class TaskController
 {
-`    public function index(): void
+    public function index(): void
     {
         $userId = $_SESSION['user_id'];
         $task = new Task();
         $tasks = $task->getTasks($userId);
         require_once __DIR__ . '/../View/tasks/index.php';
 
-    }`
+    }
 
     public function create() :void
     {

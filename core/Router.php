@@ -49,6 +49,14 @@ class Router
             );
 
             $pattern = '#^' . $routePath . '$#';
+            if (
+                str_starts_with($requestUri, '/tasks')
+                && !isset($_SESSION['user_id'])
+            ) {
+                header('Location: /PHP_Review/Public/auth/login');
+                exit;
+            }
+
             if ( $route['method'] === $requestMethod && preg_match($pattern, $requestUri, $matches)) {
                 $handler = $route['handler'];
 

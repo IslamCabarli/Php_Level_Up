@@ -56,10 +56,11 @@ class TaskController
     }
     }
 
-    public function delete($id): void
+    public function delete($id, $userID): void
     {
+        $userId = $_SESSION['user_id'];
         $task = new Task();
-        $task->delete($id);
+        $task->delete($id, $userID);
         header('Location:/PHP_Review/Public/tasks');
     }
 

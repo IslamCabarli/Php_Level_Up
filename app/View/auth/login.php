@@ -110,7 +110,7 @@
     </form>
 
     <div class="register-link">
-        Hesabınız yoxdur? <a href="register.php">Qeydiyyatdan keç</a>
+        Hesabınız yoxdur? <a href="/PHP_Review/Public/auth/register">Qeydiyyatdan keç</a>
     </div>
 
 </div>

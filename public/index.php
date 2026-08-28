@@ -16,6 +16,7 @@
     $router->get('/tasks/delete/{id}', [TaskController::class, 'delete']);
     $router->get('/auth/login', [AuthController::class, 'showLogin']);
     $router->post('/auth/login', [AuthController::class, 'login']);
+    $router->get('auth/register', [AuthController::class, 'showRegister']);
     $router->post('/auth/register', [AuthController::class, 'register']);
     $router->get('/auth/logout', [AuthController::class, 'logout']);
 

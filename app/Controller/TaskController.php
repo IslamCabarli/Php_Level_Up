@@ -56,7 +56,7 @@ class TaskController
     }
     }
 
-    public function delete($id, $userID): void
+    public function delete($id): void
     {
         $userId = $_SESSION['user_id'];
         $task = new Task();

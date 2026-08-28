@@ -29,12 +29,13 @@ class Task
         $task->execute();
     }
 
-    public function delete($id, $userID): void
+    public function delete($id, $userID): bool
     {
         $task = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id and user_id = :userID");
         $task->bindParam(':id', $id);
         $task->bindParam(':userID', $userID);
         $task->execute();
+        return $task->rowCount() > 0;
     }
     public function edit($id, $userId)
     {
@@ -45,7 +46,7 @@ class Task
         return $task->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $title, $description, $userID): void
+    public function update($id, $title, $description, $userID): bool
     {
         $task = $this->pdo->prepare('UPDATE tasks SET title = :title,description = :description WHERE id = :id and user_id = :user_id');
         $task->bindParam(':id', $id);
@@ -53,5 +54,6 @@ class Task
         $task->bindParam(':description', $description);
         $task->bindParam(':user_id', $userID);
         $task->execute();
+        return $task->rowCount() > 0;
     }
 }

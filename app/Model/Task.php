@@ -35,10 +35,11 @@ class Task
         $task->bindParam(':id', $id);
         $task->execute();
     }
-    public function edit($id)
+    public function edit($id, $userId)
     {
-        $task = $this->pdo->prepare("SELECT * FROM tasks WHERE id = :id");
+        $task = $this->pdo->prepare("SELECT * FROM tasks WHERE id = :id and user_id = :user_id");
         $task->bindParam(':id', $id);
+        $task->bindParam(':user_id', $userId);
         $task->execute();
         return $task->fetch(PDO::FETCH_ASSOC);
     }

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MySQL" uuid="42928f32-7592-4125-b209-14335dea1af9">
+    <data-source source="LOCAL" name="index.php@localhost" uuid="42928f32-7592-4125-b209-14335dea1af9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>http://localhost/phpmyadmin/index.php?route=/database/structure&amp;db=php_review</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/index.php?route=/database/structure&amp;db=php_review</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="php_review@localhost" uuid="d8d5cd56-df6f-444a-8273-2443a2a0a4c6">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/php_review</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

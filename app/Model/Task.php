@@ -10,7 +10,7 @@ class Task
         $this->pdo = $db->getPDO();
     }
 
-    public function getTasks($userId)
+    public function getTasks($userId): array
     {
         $task = $this->pdo->prepare(
             "SELECT * FROM tasks WHERE user_id = :user_id"
@@ -20,7 +20,7 @@ class Task
         $task->execute();
         return $task->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function create($user_Id, $title, $description)
+    public function create($user_Id, $title, $description): void
     {
         $task = $this->pdo->prepare("INSERT INTO tasks (user_id, title, description) VALUES (:user_id, :title, :description)");
         $task->bindParam(':user_id', $user_Id);
@@ -29,7 +29,7 @@ class Task
         $task->execute();
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
         $task = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id");
         $task->bindParam(':id', $id);
@@ -43,7 +43,7 @@ class Task
         return $task->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $title, $description)
+    public function update($id, $title, $description): void
     {
         $task = $this->pdo->prepare('UPDATE tasks SET title = :title,description = :description WHERE id = :id ');
         $task->bindParam(':id', $id);

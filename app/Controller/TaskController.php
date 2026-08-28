@@ -60,8 +60,15 @@ class TaskController
     {
         $userId = $_SESSION['user_id'];
         $task = new Task();
-        $task->delete($id, $userID);
+        $deleted = $task->delete($id, $userID);
+
+        if (!$deleted) {
+            http_response_code(403);
+            echo "You are not allowed to delete this task";
+            exit;
+        }
         header('Location:/PHP_Review/Public/tasks');
+        exit;
     }
 
     public function edit($id): void

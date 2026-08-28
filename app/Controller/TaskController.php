@@ -65,8 +65,16 @@ class TaskController
 
     public function edit($id): void
     {
+        $userId = $_SESSION['user_id'];
         $tasks = new Task();
-        $task = $tasks->edit($id);
+        $task = $tasks->edit($id, $userId);
+
+        if (!$task)
+        {
+            http_response_code(403);
+            echo "You are not allowed to edit this task";
+            exit;
+        }
         require_once __DIR__ . '/../View/tasks/edit.php';
     }
     public function update($id): void

@@ -29,10 +29,11 @@ class Task
         $task->execute();
     }
 
-    public function delete($id): void
+    public function delete($id, $userID): void
     {
-        $task = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id");
+        $task = $this->pdo->prepare("DELETE FROM tasks WHERE id = :id and user_id = :userID");
         $task->bindParam(':id', $id);
+        $task->bindParam(':userID', $userID);
         $task->execute();
     }
     public function edit($id, $userId)

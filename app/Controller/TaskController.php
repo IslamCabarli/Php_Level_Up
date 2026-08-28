@@ -48,8 +48,9 @@ class TaskController
     }
     else
     {
+        $userId = $_SESSION['user_id'];
         $task = new Task();
-        $task->create($title, $description);
+        $task->create($userId, $title, $description);
         header('Location:/PHP_Review/Public/tasks');
     }
     }

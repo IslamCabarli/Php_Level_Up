@@ -16,9 +16,10 @@ class Task
         $task->execute();
         return $task->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function create($title, $description)
+    public function create($user_Id, $title, $description)
     {
-        $task = $this->pdo->prepare("INSERT INTO tasks (title, description) VALUES (:title, :description)");
+        $task = $this->pdo->prepare("INSERT INTO tasks (user_id, title, description) VALUES (:user_id, :title, :description)");
+        $task->bindParam(':user_id', $user_Id);
         $task->bindParam(':title', $title);
         $task->bindParam(':description', $description);
         $task->execute();

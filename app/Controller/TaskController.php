@@ -60,7 +60,7 @@ class TaskController
     {
         $userId = $_SESSION['user_id'];
         $task = new Task();
-        $deleted = $task->delete($id, $userID);
+        $deleted = $task->delete($id, $userId);
 
         if (!$deleted) {
             http_response_code(403);

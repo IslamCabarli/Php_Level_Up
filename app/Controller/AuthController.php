@@ -52,6 +52,11 @@
             }
         }
 
+        public function showRegister(): void
+        {
+            require_once __DIR__ . '/../View/auth/register.php';
+        }
+
         public function showLogin(): void
         {
             require_once __DIR__ . '/../View/auth/login.php';

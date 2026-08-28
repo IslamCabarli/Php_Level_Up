@@ -2,6 +2,8 @@
     session_start();
     require_once '../core/Router.php';
     require_once __DIR__ . '/../app/Controller/TaskController.php';
+    require_once __DIR__ . '/../app/Controller/AuthController.php';
+
     $router = new Router();
     $router->get('/', function() {
         echo "Welcome to the default index route!";
@@ -12,6 +14,7 @@
     $router->get('/tasks/edit/{id}',[TaskController::class, 'edit']);
     $router->post('/tasks/update/{id}', [TaskController::class, 'update']);
     $router->get('/tasks/delete/{id}', [TaskController::class, 'delete']);
+    $router->get('/auth/login', [AuthController::class, 'login']);
 
 
     $router->dispatch();

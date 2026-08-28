@@ -2,13 +2,14 @@
 require_once __DIR__ . '/../Model/Task.php';
 class TaskController
 {
-    public function index(): void
+`    public function index(): void
     {
+        $userId = $_SESSION['user_id'];
         $task = new Task();
-        $tasks = $task->getTasks();
+        $tasks = $task->getTasks($userId);
         require_once __DIR__ . '/../View/tasks/index.php';
 
-    }
+    }`
 
     public function create() :void
     {
@@ -55,7 +56,7 @@ class TaskController
     }
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
         $task = new Task();
         $task->delete($id);

@@ -10,7 +10,7 @@ class Task
         $this->pdo = $db->getPDO();
     }
 
-    public function getTasks()
+    public function getTasks($userId)
     {
         $task = $this->pdo->prepare(
             "SELECT * FROM tasks WHERE user_id = :user_id"

@@ -1,6 +1,6 @@
 <?php
 
-    namespace Middleware;
+    namespace AuthMiddleware;
     class AuthMiddleware
     {
         public static function handle(): void

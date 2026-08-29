@@ -98,6 +98,11 @@
     <form action="/PHP_Review/Public/auth/register" method="POST">
 
         <div class="form-group">
+            <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>"
+            >
             <label for="name">Ad Soyad</label>
             <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($_POST['name'] ?? '') ?>"  placeholder="Adınızı daxil edin">
         </div>

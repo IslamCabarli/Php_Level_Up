@@ -1,6 +1,4 @@
 <?php
-
-    namespace AuthMiddleware;
     class AuthMiddleware
     {
         public static function handle(): void

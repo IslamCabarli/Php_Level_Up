@@ -5,15 +5,7 @@
 
         public function register(): void
         {
-            if (
-                !isset($_SESSION['csrf_token']) ||
-                !isset($_POST['csrf_token']) ||
-                !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
-            ) {
-                http_response_code(403);
-                echo "Invalid CSRF token";
-                exit;
-            }
+          Csrf::verifyToken();
 
             $errors = [];
             $name = trim($_POST['name']);
@@ -74,15 +66,7 @@
 
         public function login()
         {
-            if (
-                !isset($_SESSION['csrf_token']) ||
-                !isset($_POST['csrf_token']) ||
-                !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
-            ) {
-                http_response_code(403);
-                echo "Invalid CSRF token";
-                exit;
-            }
+           Csrf::verifyToken();
             $errors = [];
             $email = trim($_POST['email']);
             $password = trim($_POST['password']);

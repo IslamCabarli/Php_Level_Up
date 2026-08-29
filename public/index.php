@@ -1,5 +1,13 @@
 <?php
     session_start();
+    if (empty($_SESSION['csrf_token']) )
+    {
+        try {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        } catch (\Random\RandomException $e) {
+            echo $e->getMessage();
+        }
+    }
     require_once '../core/Router.php';
     require_once __DIR__ . '/../app/Controller/TaskController.php';
     require_once __DIR__ . '/../app/Controller/AuthController.php';

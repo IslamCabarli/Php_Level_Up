@@ -1,4 +1,6 @@
 <form method="POST" action="/PHP_Review/Public/tasks">
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>" />
+
     <input
             type="text"
             name="title"

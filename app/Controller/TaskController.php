@@ -96,6 +96,15 @@ class TaskController
     }
     public function update($id): void
     {
+        if (
+            !isset($_SESSION['csrf_token']) ||
+            !isset($_POST['csrf_token']) ||
+            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+        ) {
+            http_response_code(403);
+            echo "Invalid CSRF token";
+            exit;
+        }
         $userId = $_SESSION['user_id'];
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);

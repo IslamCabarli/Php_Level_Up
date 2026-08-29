@@ -2,6 +2,7 @@
     session_start();
 
     require_once '../core/Router.php';
+    require_once '../core/Validator.php';
     require_once "../core/Csrf.php";
 
     require_once __DIR__ . '/../app/Controller/TaskController.php';

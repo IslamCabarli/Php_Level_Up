@@ -8,50 +8,53 @@
           Csrf::verifyToken();
 
             $errors = [];
-            $name = trim($_POST['name']);
-            $email = trim($_POST['email']);
-            $password = $_POST['password'];
-            if($name == "")
+
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+
+            if($error = Validator::required($name, 'Name'))
             {
-                $errors[] =("Name cannot be empty");
+                $errors[] = $error;
             }
-            else if(strlen($name) <3) {
-                $errors[] = ("Name cannot be less than 3");
+            else if ( $error = Validator::minLength($name, 3, 'Name')) {
+                $errors[] = $error;
             }
-            if ($email == "")
+            if ($error = Validator::required($email, 'Email'))
             {
-                $errors[] =("Email cannot be empty");
+                $errors[] = $error;
             }
-            else if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
+            else if ( $error = Validator::email($email))
             {
-                $errors[] =("Wrong email format");
+                $errors[] = $error;
             }
 
-            if ($password == "")
+            if ($error = Validator::required($password, 'Password'))
             {
-                $errors[] =("Password cannot be empty");
+                $errors[] = $error;
             }
-
-
-            else if (strlen($password) <8 )
+            else if ( $error = Validator::minLength($password, 8, 'Password'))
             {
-                $errors[] =("Password cannot be less than 8");
+                $errors[] = $error;
             }
 
-            $user = new User();
-            $existingUser = $user->findByEmail($email);
-            if($existingUser){
-                $errors[] = "This email is already registered";
-            }
             if(!empty($errors)){
                 require_once __DIR__ . '/../View/auth/register.php';
+                return;
             }
-            else{
+            $user = new User();
 
+            $existingUser = $user->findByEmail($email);
 
+            if($existingUser){
+                $errors[] = "This email is already registered";
+                require_once __DIR__ . '/../View/auth/register.php';
+                return;
+            }
                 $user->register($name, $email, $password);
-                header('Location:/PHP_Review/Public/tasks');
-            }
+                header('Location:/PHP_Review/Public/auth/login');
+                exit;
+
         }
 
         public function showRegister(): void

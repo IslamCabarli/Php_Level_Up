@@ -92,7 +92,7 @@
             $user = new User();
             $existingUser = $user->findByEmail($email);
 
-            if (!$existingUser || !password_verify($password, $existingUser->password))
+            if (!$existingUser || !password_verify($password, $existingUser['password']))
             {
                 $errors[] = "Invalid email or password";
                 require_once __DIR__ . '/../View/auth/login.php';

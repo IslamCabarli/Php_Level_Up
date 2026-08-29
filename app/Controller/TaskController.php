@@ -18,7 +18,9 @@ class TaskController
 
     public function store() :void
     {
-        if(!isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))
+        if(!isset($_SESSION['csrf_token']) ||
+            !isset($_POST['csrf_token'])  ||
+            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))
         {
             http_response_code(403);
             echo "Invalid CSRF token";

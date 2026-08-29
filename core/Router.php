@@ -1,25 +1,27 @@
 <?php
+    require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 class Router
 {
     private array $routes = [];
 
-    public function get(string $path, callable|array $handler): void
+    public function get( string $path, callable|array $handler, bool $auth = false ): void
     {
-        $this->addRoute('GET', $path, $handler);
+        $this->addRoute('GET', $path, $handler, $auth);
     }
 
     // Register a POST route
-    public function post(string $path, callable|array $handler): void
+    public function post(string $path, callable|array $handler, bool $auth = false ): void
     {
-        $this->addRoute('POST', $path, $handler);
+        $this->addRoute('POST', $path, $handler, $auth);
     }
 
-    private function addRoute(string $method, string $path, callable|array $handler): void
+    private function addRoute(string $method, string $path, callable|array $handler, bool $auth): void
     {
         $this->routes[] = [
             'method' => $method,
             'path' => $path,
             'handler' => $handler,
+            'auth' => $auth,
         ];
     }
 
@@ -49,15 +51,14 @@ class Router
             );
 
             $pattern = '#^' . $routePath . '$#';
-            if (
-                str_starts_with($requestUri, '/tasks')
-                && !isset($_SESSION['user_id'])
-            ) {
-                header('Location: /PHP_Review/Public/auth/login');
-                exit;
-            }
 
-            if ( $route['method'] === $requestMethod && preg_match($pattern, $requestUri, $matches)) {
+            if ( $route['method'] === $requestMethod &&
+                preg_match($pattern, $requestUri, $matches)
+            ){
+                if ($route['auth']) {
+                    AuthMiddleware::handle();
+                }
+
                 $handler = $route['handler'];
 
                 if (is_callable($handler)) {

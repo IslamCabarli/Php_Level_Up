@@ -96,6 +96,11 @@
     <form action="/PHP_Review/Public/auth/login" method="POST">
 
         <div class="form-group">
+            <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>"
+            >
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Emailinizi daxil edin" required>
         </div>

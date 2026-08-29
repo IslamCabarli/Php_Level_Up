@@ -25,7 +25,7 @@
     $router->post('/auth/login', [AuthController::class, 'login']);
     $router->get('/auth/register', [AuthController::class, 'showRegister']);
     $router->post('/auth/register', [AuthController::class, 'register']);
-    $router->get('/auth/logout', [AuthController::class, 'logout'],true);
+    $router->post('/auth/logout', [AuthController::class, 'logout'],true);
 
 
     $router->dispatch();

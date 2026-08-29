@@ -32,3 +32,14 @@ foreach ($tasks as $t) {
 ?>
 
     <a href='/PHP_Review/Public/tasks/create'>NEW TASK</a>
+
+
+<form method="POST" action="/PHP_Review/Public/auth/logout">
+    <input
+            type="hidden"
+            name="csrf_token"
+            value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>"
+    >
+
+    <button type="submit">Logout</button>
+</form>

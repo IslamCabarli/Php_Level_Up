@@ -67,31 +67,47 @@
             require_once __DIR__ . '/../View/auth/login.php';
         }
 
-        public function login()
+        public function login(): void
         {
            Csrf::verifyToken();
             $errors = [];
-            $email = trim($_POST['email']);
-            $password = trim($_POST['password']);
+            $email = trim($_POST['email'] ?? '');
+            $password = trim($_POST['password'] ?? '');
+
+            if ($error = Validator::required($email, 'Email')) {
+                $errors[] = $error;
+            }else if ($error = Validator::email($email)) {
+                $errors[] = $error;
+            }
+            if ($error = Validator::required($password, 'Password'))
+            {
+                $errors[] = $error;
+            }
+
+            if (!empty($errors)) {
+                require_once __DIR__ . '/../View/auth/login.php';
+                return;
+            }
+
             $user = new User();
             $existingUser = $user->findByEmail($email);
-            if($existingUser){
-                if(password_verify($password, $existingUser['password'])){
-                    $_SESSION['user_id'] = $existingUser['id'];
-                    header('Location:/PHP_Review/Public/tasks');
-                    exit;
-                }
-                else {
-                    $errors[] = "Invalid email or password";
-                }
 
-            }
-            else{
+            if (!$existingUser || !password_verify($password, $existingUser->password))
+            {
                 $errors[] = "Invalid email or password";
-            }
-            if(!empty($errors)){
                 require_once __DIR__ . '/../View/auth/login.php';
+                return;
             }
+
+            session_regenerate_id(true);
+
+            $_SESSION['user_id'] = $existingUser['id'];
+
+            header('Location: /PHP_Review/Public/tasks');
+            exit;
+
+
+
         }
 
         public function logout()

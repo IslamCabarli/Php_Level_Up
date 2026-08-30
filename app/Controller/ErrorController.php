@@ -1,5 +1,5 @@
 <?php
-    class ErrorControlller
+    class ErrorController
     {
         public function show(int $code): void
         {

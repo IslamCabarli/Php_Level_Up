@@ -87,7 +87,7 @@ class TaskController
 
         if (!$existingTask) {
             http_response_code(403);
-            echo "You are not allowed to update this task";
+            require_once __DIR__ . '/../View/Error/403.php';
             exit;
         }
 

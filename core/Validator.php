@@ -29,7 +29,10 @@ class Validator
     {
         $errors = [];
         foreach ($rules as $field => $fieldRules) {
+
             $value = $data[$field] ?? '';
+            $fieldName = ucfirst($field);
+
             foreach ($fieldRules as $rule) {
                 if ($rule === 'required') {
 
@@ -37,6 +40,7 @@ class Validator
 
                     if ($error) {
                         $errors[] = $error;
+                        break;
                     }
                 }
                 if (str_starts_with($rule, 'min:')) {
@@ -46,11 +50,12 @@ class Validator
                     $error = self::minLength(
                         $value,
                         $min,
-                        ucfirst($field)
+                        $fieldName
                     );
 
                     if ($error) {
                         $errors[] = $error;
+                        break;
                     }
                 }
 
@@ -60,6 +65,7 @@ class Validator
 
                     if ($error) {
                         $errors[] = $error;
+                        break;
                     }
                 }
             }

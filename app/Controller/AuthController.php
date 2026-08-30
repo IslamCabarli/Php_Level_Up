@@ -6,38 +6,21 @@
         public function register(): void
         {
           Csrf::verifyToken();
+            $data = [
+            $name = trim($_POST['name'] ?? ''),
+            $email = trim($_POST['email'] ?? ''),
+            $password = $_POST['password'] ?? '',
+            ];
 
-            $errors = [];
+            $errors = Validator::validate(
+               $data,
+                [
+                    'name' => ['required', 'min:3'],
+                    'email' => ['required', 'email'],
+                    'password' => ['required', 'min:8'],
 
-            $name = trim($_POST['name'] ?? '');
-            $email = trim($_POST['email'] ?? '');
-            $password = $_POST['password'] ?? '';
-
-            if($error = Validator::required($name, 'Name'))
-            {
-                $errors[] = $error;
-            }
-            else if ( $error = Validator::minLength($name, 3, 'Name')) {
-                $errors[] = $error;
-            }
-            if ($error = Validator::required($email, 'Email'))
-            {
-                $errors[] = $error;
-            }
-            else if ( $error = Validator::email($email))
-            {
-                $errors[] = $error;
-            }
-
-            if ($error = Validator::required($password, 'Password'))
-            {
-                $errors[] = $error;
-            }
-            else if ( $error = Validator::minLength($password, 8, 'Password'))
-            {
-                $errors[] = $error;
-            }
-
+                ]
+            );
             if(!empty($errors)){
                 require_once __DIR__ . '/../View/auth/register.php';
                 return;
@@ -70,20 +53,20 @@
         public function login(): void
         {
            Csrf::verifyToken();
-            $errors = [];
-            $email = trim($_POST['email'] ?? '');
-            $password = trim($_POST['password'] ?? '');
 
-            if ($error = Validator::required($email, 'Email')) {
-                $errors[] = $error;
-            }else if ($error = Validator::email($email)) {
-                $errors[] = $error;
-            }
-            if ($error = Validator::required($password, 'Password'))
-            {
-                $errors[] = $error;
-            }
+            $data = [
+            $email = trim($_POST['email'] ?? ''),
+            $password = trim($_POST['password'] ?? ''),
+                ];
 
+            $errors = Validator::validate(
+                $data,
+                [
+                    'email' => ['required', 'email'],
+                    'password' => ['required'],
+
+                ]
+            );
             if (!empty($errors)) {
                 require_once __DIR__ . '/../View/auth/login.php';
                 return;

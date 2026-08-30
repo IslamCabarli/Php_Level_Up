@@ -23,39 +23,29 @@ class TaskController
         $errors = [];
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);
-        if (empty($title))
+        if ($error = Validator::required($title, 'Title'))
         {
-            http_response_code(400);
-            array_push($errors, "Please enter title");
-        }
-        if (empty($description))
-        {
-            http_response_code(400);
-            array_push($errors,     "Please enter description");
-
+           $errors[] = $error;
+        }elseif ($error = Validator::minLength($title, 4, 'Title')) {
+            $errors[] = $error;
         }
 
-        if (strlen($title)<=3)
+        if ($error = Validator::required($description, 'Description'))
         {
-            http_response_code(400);
-            array_push($errors, "Title must be up 3 characters");
-        }
-        if (strlen($description)<=5)
-        {
-            http_response_code(400);
-            array_push($errors, "Description must be up 5 characters");
-
+            $errors[] = $error;
+        }elseif ($error = Validator::minLength($description, 6, 'Description')) {
+            $errors[] = $error;
         }
         if (!empty($errors)){
             require_once __DIR__ . '/../View/tasks/create.php';
+            return;
         }
-        else
-        {
-            $userId = $_SESSION['user_id'];
-            $task = new Task();
-            $task->create($userId, $title, $description);
-            header('Location:/PHP_Review/Public/tasks');
-        }
+
+        $userId = $_SESSION['user_id'];
+        $task = new Task();
+        $task->create($userId, $title, $description);
+        header('Location:/PHP_Review/Public/tasks');
+        exit;
     }
 
     public function delete($id): void

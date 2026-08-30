@@ -98,13 +98,12 @@ class TaskController
         }
 
         if (!empty($errors)) {
-            $taskModel = new Task();
-            $task = $taskModel->edit($id, $_SESSION['user_id']);
-            if (!$task) {
-                http_response_code(403);
-                echo "You are not allowed to update this task";
-                exit;
-            }
+
+            $task = [
+                'id' => $id,
+                'title' => $title,
+                'description' => $description,
+            ];
             require_once __DIR__ . '/../View/tasks/edit.php';
             return;
         }

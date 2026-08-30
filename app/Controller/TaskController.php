@@ -20,20 +20,20 @@ class TaskController
     {
         Csrf::verifyToken();
 
-        $errors = [];
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);
-        if ($error = Validator::required($title, 'Title')) {
-            $errors[] = $error;
-        } elseif ($error = Validator::minLength($title, 4, 'Title')) {
-            $errors[] = $error;
-        }
 
-        if ($error = Validator::required($description, 'Description')) {
-            $errors[] = $error;
-        } elseif ($error = Validator::minLength($description, 8, 'Description')) {
-            $errors[] = $error;
-        }
+        $errors = Validator::validate(
+            [
+                'title' => $title,
+                'description' => $description,
+            ],
+            [
+                'title' => ['required', 'min:4'],
+                'description' => ['required', 'min:6'],
+            ]
+        );
+
         if (!empty($errors)) {
             require_once __DIR__ . '/../View/tasks/create.php';
             return;
@@ -79,26 +79,32 @@ class TaskController
     public function update($id): void
     {
         Csrf::verifyToken();
+        $userId = $_SESSION['user_id'];
 
-        $errors = [];
+        $task = new Task();
+
+        $existingTask = $task->edit($id, $userId);
+
+        if (!$existingTask) {
+            http_response_code(403);
+            echo "You are not allowed to update this task";
+            exit;
+        }
 
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);
 
-        if ($error = Validator::required($title, 'Title')) {
-            $errors[] = $error;
-        } else if ($error = Validator::minLength($title, 4, 'Title')) {
-            $errors[] = $error;
-        }
-
-        if ($error = Validator::required($description, 'Description')) {
-            $errors[] = $error;
-        } else if ($error = Validator::minLength($description, 8, 'Description')) {
-            $errors[] = $error;
-        }
-
+        $errors = Validator::validate(
+            [
+                'title' => $title,
+                'description' => $description,
+            ],
+            [
+                'title' => ['required', 'min:4'],
+                'description' => ['required', 'min:6'],
+            ],
+        );
         if (!empty($errors)) {
-
             $task = [
                 'id' => $id,
                 'title' => $title,
@@ -107,9 +113,7 @@ class TaskController
             require_once __DIR__ . '/../View/tasks/edit.php';
             return;
         }
-        $userId = $_SESSION['user_id'];
 
-        $task = new Task();
 
         $updated = $task->update(
             $id,
@@ -125,8 +129,5 @@ class TaskController
 
         header('Location: /PHP_Review/Public/tasks');
         exit;
-
-
-
     }
 }

@@ -11,7 +11,6 @@
 
         public static function userId(): int
         {
-            self::handle();
             return (int) $_SESSION['user_id'];
         }
     }

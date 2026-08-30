@@ -4,7 +4,7 @@ class TaskController
 {
     public function index(): void
     {
-        $userId = $_SESSION['user_id'];
+        $userId = AuthMiddleware::userId();
         $task = new Task();
         $tasks = $task->getTasks($userId);
         require_once __DIR__ . '/../View/tasks/index.php';
@@ -39,7 +39,7 @@ class TaskController
             return;
         }
 
-        $userId = $_SESSION['user_id'];
+        $userId = AuthMiddleware::userId();
         $task = new Task();
         $task->create($userId, $title, $description);
         header('Location:/PHP_Review/Public/tasks');
@@ -49,7 +49,7 @@ class TaskController
     public function delete($id): void
     {
         Csrf::verifyToken();
-        $userId = $_SESSION['user_id'];
+        $userId = AuthMiddleware::userId();
         $task = new Task();
         $deleted = $task->delete($id, $userId);
 
@@ -64,7 +64,7 @@ class TaskController
 
     public function edit($id): void
     {
-        $userId = $_SESSION['user_id'];
+        $userId = AuthMiddleware::userId();
         $tasks = new Task();
         $task = $tasks->edit($id, $userId);
 
@@ -79,7 +79,7 @@ class TaskController
     public function update($id): void
     {
         Csrf::verifyToken();
-        $userId = $_SESSION['user_id'];
+        $userId = AuthMiddleware::userId();
 
         $task = new Task();
 

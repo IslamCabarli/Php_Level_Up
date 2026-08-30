@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/../app/Controller/ErrorController.php';
     require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 class Router
 {
@@ -87,9 +88,10 @@ class Router
 
     private function abort(int $code): void
     {
-        http_response_code($code);
-        echo "<h1>$code - Page Not Found</h1>";
-        exit;
+
+        $errorController = new ErrorController();
+        $errorController->show($code);
+       exit;
     }
 }
 

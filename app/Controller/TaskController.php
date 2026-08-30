@@ -11,32 +11,30 @@ class TaskController
 
     }
 
-    public function create() :void
+    public function create(): void
     {
         require_once __DIR__ . '/../View/tasks/create.php';
     }
 
-    public function store() :void
+    public function store(): void
     {
-       Csrf::verifyToken();
+        Csrf::verifyToken();
 
         $errors = [];
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);
-        if ($error = Validator::required($title, 'Title'))
-        {
-           $errors[] = $error;
-        }elseif ($error = Validator::minLength($title, 4, 'Title')) {
+        if ($error = Validator::required($title, 'Title')) {
+            $errors[] = $error;
+        } elseif ($error = Validator::minLength($title, 4, 'Title')) {
             $errors[] = $error;
         }
 
-        if ($error = Validator::required($description, 'Description'))
-        {
+        if ($error = Validator::required($description, 'Description')) {
             $errors[] = $error;
-        }elseif ($error = Validator::minLength($description, 6, 'Description')) {
+        } elseif ($error = Validator::minLength($description, 8, 'Description')) {
             $errors[] = $error;
         }
-        if (!empty($errors)){
+        if (!empty($errors)) {
             require_once __DIR__ . '/../View/tasks/create.php';
             return;
         }
@@ -50,7 +48,7 @@ class TaskController
 
     public function delete($id): void
     {
-      Csrf::verifyToken();
+        Csrf::verifyToken();
         $userId = $_SESSION['user_id'];
         $task = new Task();
         $deleted = $task->delete($id, $userId);
@@ -70,32 +68,66 @@ class TaskController
         $tasks = new Task();
         $task = $tasks->edit($id, $userId);
 
-        if (!$task)
-        {
+        if (!$task) {
             http_response_code(403);
             echo "You are not allowed to edit this task";
             exit;
         }
         require_once __DIR__ . '/../View/tasks/edit.php';
     }
+
     public function update($id): void
     {
         Csrf::verifyToken();
-        $userId = $_SESSION['user_id'];
+
+        $errors = [];
+
         $title = trim($_POST['title']);
         $description = trim($_POST['description']);
-        $task = new Task();
-        $updated = $task->update($id,$title, $description, $userId);
 
-        if (!$updated)
-        {
-            http_response_code(403);
-            echo "You are not allowed to update this task";
+        if ($error = Validator::required($title, 'Title')) {
+            $errors[] = $error;
+        } else if ($error = Validator::minLength($title, 4, 'Title')) {
+            $errors[] = $error;
+        }
+
+        if ($error = Validator::required($description, 'Description')) {
+            $errors[] = $error;
+        } else if ($error = Validator::minLength($description, 8, 'Description')) {
+            $errors[] = $error;
+        }
+
+        if (!empty($errors)) {
+            $taskModel = new Task();
+            $task = $taskModel->edit($id, $_SESSION['user_id']);
+            if (!$task) {
+                http_response_code(403);
+                echo "You are not allowed to update this task";
+                exit;
+            }
+            require_once __DIR__ . '/../View/tasks/edit.php';
+            return;
+        }
+        $userId = $_SESSION['user_id'];
+
+        $task = new Task();
+
+        $updated = $task->update(
+            $id,
+            $title,
+            $description,
+            $userId
+        );
+        if (!$updated) {
+            http_response_code(500);
+            echo "Failed to update task";
             exit;
         }
 
-        header('Location:/PHP_Review/Public/tasks');
+        header('Location: /PHP_Review/Public/tasks');
         exit;
-    }
 
+
+
+    }
 }

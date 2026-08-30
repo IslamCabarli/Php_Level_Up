@@ -1,3 +1,13 @@
+<?php if (!empty($errors)): ?>
+
+    <?php foreach ($errors as $error): ?>
+
+        <p><?= htmlspecialchars($error) ?></p>
+
+    <?php endforeach; ?>
+
+<?php endif; ?>
+
 <?php
     $id = $task['id'];
 ?>
@@ -25,3 +35,5 @@
     <input type="submit" value="Update" />
 
 </form>
+
+

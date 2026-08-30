@@ -1,5 +1,5 @@
 <form method="POST" action="/PHP_Review/Public/tasks">
-    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>" />
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Csrf::generateToken()); ?>" />
 
     <input
             type="text"
@@ -13,7 +13,7 @@
             value="<?php echo htmlspecialchars($_POST['description'] ?? '') ?>"
     />
 
-    <input type="submit" />
+    <input type="submit" value="Create" />
 </form>
 
 <?php

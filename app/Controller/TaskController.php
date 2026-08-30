@@ -55,7 +55,7 @@ class TaskController
 
         if (!$deleted) {
             http_response_code(403);
-            echo "You are not allowed to delete this task";
+            require_once __DIR__ . '/../View/Error/403.php';
             exit;
         }
         header('Location:/PHP_Review/Public/tasks');
@@ -70,7 +70,7 @@ class TaskController
 
         if (!$task) {
             http_response_code(403);
-            echo "You are not allowed to edit this task";
+            require_once __DIR__ . '/../View/Error/403.php';
             exit;
         }
         require_once __DIR__ . '/../View/tasks/edit.php';

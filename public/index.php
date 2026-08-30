@@ -10,6 +10,17 @@
 
     Csrf::generateToken();
 
+    set_exception_handler(function (Throwable $exception) {
+
+        error_log($exception->getMessage());
+
+        http_response_code(500);
+
+        require_once __DIR__ . '/../app/View/Error/500.php';
+
+        exit;
+    });
+
     $router = new Router();
     $router->get('/', function() {
         echo "Welcome to the default index route!";

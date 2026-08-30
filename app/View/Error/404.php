@@ -1,11 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 Not Found</title>
+</head>
+<body>
 
-<h1>Sorry. Page not Found</h1>
-<p>
-    <a href="/PHP_Review/Public/tasks">Go back</a>
-</p>
+<h1>404 - Page Not Found</h1>
 
-<?php
-    var_dump($uri);
-    var_dump($method);
-    die();
-?>
+<p>The page you are looking for does not exist.</p>
+
+<a href="/PHP_Review/Public/tasks">Back to tasks</a>
+
+</body>
+</html>

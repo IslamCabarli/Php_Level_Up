@@ -12,10 +12,11 @@ class Csrf
 
     public static function verifyToken() : void
     {
+        $token = $_POST['csrf_token'] ?? '';
         if (
-            !isset($_SESSION['csrf_token']) ||
-            !isset($_POST['csrf_token']) ||
-            !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])
+            empty($_SESSION['csrf_token']) ||
+            empty($token) ||
+            !hash_equals($_SESSION['csrf_token'],$token)
         ) {
             http_response_code(403);
             echo "Invalid CSRF token";

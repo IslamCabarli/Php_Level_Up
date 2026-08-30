@@ -53,7 +53,7 @@ class Task
         $task->bindParam(':title', $title);
         $task->bindParam(':description', $description);
         $task->bindParam(':user_id', $userID);
-        $task->execute();
-        return $task->rowCount() > 0;
+
+        return $task->execute();
     }
 }

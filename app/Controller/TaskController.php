@@ -79,11 +79,12 @@ class TaskController
     public function update($id): void
     {
         Csrf::verifyToken();
+
         $userId = AuthMiddleware::userId();
 
-        $task = new Task();
+        $taskModel = new Task();
 
-        $existingTask = $task->edit($id, $userId);
+        $existingTask = $taskModel->edit($id, $userId);
 
         if (!$existingTask) {
             http_response_code(403);
@@ -91,8 +92,8 @@ class TaskController
             exit;
         }
 
-        $title = trim($_POST['title']);
-        $description = trim($_POST['description']);
+        $title = trim($_POST['title'] ?? '');
+        $description = trim($_POST['description'] ?? '');
 
         $errors = Validator::validate(
             [
@@ -102,28 +103,31 @@ class TaskController
             [
                 'title' => ['required', 'min:4'],
                 'description' => ['required', 'min:6'],
-            ],
+            ]
         );
+
         if (!empty($errors)) {
+
             $task = [
                 'id' => $id,
                 'title' => $title,
                 'description' => $description,
             ];
+
             require_once __DIR__ . '/../View/tasks/edit.php';
             return;
         }
 
-
-        $updated = $task->update(
+        $updated = $taskModel->update(
             $id,
             $title,
             $description,
             $userId
         );
+
         if (!$updated) {
             http_response_code(500);
-            echo "Failed to update task";
+            require_once __DIR__ . '/../View/Error/500.php';
             exit;
         }
 

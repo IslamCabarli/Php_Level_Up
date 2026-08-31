@@ -54,9 +54,7 @@ class TaskController
         $deleted = $task->delete($id, $userId);
 
         if (!$deleted) {
-            http_response_code(403);
-            require_once __DIR__ . '/../View/Error/403.php';
-            exit;
+           abort(403);
         }
         header('Location:/PHP_Review/Public/tasks');
         exit;

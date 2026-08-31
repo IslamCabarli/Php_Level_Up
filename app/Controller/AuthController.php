@@ -64,7 +64,6 @@
                 [
                     'email' => ['required', 'email'],
                     'password' => ['required'],
-
                 ]
             );
             if (!empty($errors)) {

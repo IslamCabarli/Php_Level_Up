@@ -7,9 +7,9 @@
         {
           Csrf::verifyToken();
             $data = [
-            $name = trim($_POST['name'] ?? ''),
-            $email = trim($_POST['email'] ?? ''),
-            $password = $_POST['password'] ?? '',
+                'name' => trim($_POST['name'] ?? ''),
+                'email' => trim($_POST['email'] ?? ''),
+                'password' => $_POST['password'] ?? '',
             ];
 
             $errors = Validator::validate(
@@ -55,9 +55,9 @@
            Csrf::verifyToken();
 
             $data = [
-            $email = trim($_POST['email'] ?? ''),
-            $password = trim($_POST['password'] ?? ''),
-                ];
+                'email' => trim($_POST['email'] ?? ''),
+                'password' => trim($_POST['password'] ?? ''),
+            ];
 
             $errors = Validator::validate(
                 $data,
@@ -73,9 +73,9 @@
             }
 
             $user = new User();
-            $existingUser = $user->findByEmail($email);
+            $existingUser = $user->findByEmail($data['email']);
 
-            if (!$existingUser || !password_verify($password, $existingUser['password']))
+            if (!$existingUser || !password_verify($data['password'], $existingUser['password']))
             {
                 $errors[] = "Invalid email or password";
                 require_once __DIR__ . '/../View/auth/login.php';

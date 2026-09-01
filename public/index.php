@@ -11,7 +11,7 @@ require_once __DIR__ . '/../app/Controller/AuthController.php';
 
 Csrf::generateToken();
 
-set_exception_handler(function (Throwable $exception) {
+set_exception_handler(function (Throwable $exception): void {
 
     error_log($exception->getMessage());
 

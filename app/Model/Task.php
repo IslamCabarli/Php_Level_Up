@@ -12,17 +12,27 @@ class Task
 
     public function getTasks(int $userId): array
     {
-        $task = $this->pdo->prepare(
-            "SELECT * FROM tasks WHERE user_id = :user_id"
-        );
+        try {
+            $task = $this->pdo->prepare(
+                "SELECT * FROM tasks WHERE user_id = :user_id"
+            );
 
 
-        $task->execute([
+            $task->execute([
                 ':user_id' => $userId
-        ]);
-        return $task->fetchAll(PDO::FETCH_ASSOC);
+            ]);
+            return $task->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log('Error fetching tasks: ' . $e->getMessage());
+
+            throw new Exception(
+                'Failed to fetch tasks. Please try again later.',
+                0,
+                $e
+            );
+        }
     }
-    public function create(int $userId, string $title,string $description): void
+    public function create(int $userId, string $title, string $description): void
     {
         $task = $this->pdo->prepare("INSERT INTO tasks (user_id, title, description) VALUES (:user_id, :title, :description)");
         $task->execute([

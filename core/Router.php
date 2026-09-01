@@ -82,17 +82,11 @@ class Router
                 }
             }
         }
-        $this->abort(404);
+        abort(404);
     }
 
 
-    private function abort(int $code): void
-    {
 
-        $errorController = new ErrorController();
-        $errorController->show($code);
-       exit;
-    }
 }
 
 

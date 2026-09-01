@@ -67,9 +67,7 @@ class TaskController
         $task = $tasks->edit($id, $userId);
 
         if (!$task) {
-            http_response_code(403);
-            require_once __DIR__ . '/../View/Error/403.php';
-            exit;
+            abort(403);
         }
         require_once __DIR__ . '/../View/tasks/edit.php';
     }
@@ -85,9 +83,7 @@ class TaskController
         $existingTask = $taskModel->edit($id, $userId);
 
         if (!$existingTask) {
-            http_response_code(403);
-            require_once __DIR__ . '/../View/Error/403.php';
-            exit;
+            abort(403);
         }
 
         $title = trim($_POST['title'] ?? '');

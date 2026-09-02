@@ -95,8 +95,11 @@
         public function logout(): void
         {
             Csrf::verifyToken();
+
             unset($_SESSION['user_id']);
+
             session_regenerate_id(true);
+
             header('Location:/PHP_Review/Public/tasks');
             exit;
         }

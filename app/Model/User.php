@@ -1,16 +1,17 @@
 <?php
     namespace App\Model;
-    require_once  __DIR__ . "/../../core/Database.php";
+    use Core\Database;
+    Use PDO;
     class User
     {
-        public $pdo;
+        public PDO  $pdo;
 
         public function __construct()
         {
             $db = new Database();
             $this->pdo = $db->getPDO();
         }
-        public function register($name, $email, $password)
+        public function register($name, $email, $password): void
             {
                 $user = $this->pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
                 $password = password_hash($password, PASSWORD_DEFAULT);

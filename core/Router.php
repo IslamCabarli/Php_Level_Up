@@ -1,7 +1,6 @@
 <?php
     namespace Core;
-    require_once __DIR__ . '/../app/Controller/ErrorController.php';
-    require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
+    use App\Middleware\AuthMiddleware;
 class Router
 {
     private array $routes = [];

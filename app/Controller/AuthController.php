@@ -1,6 +1,8 @@
 <?php
     namespace App\Controller;
-    require_once __DIR__ . '/../Model/User.php';
+    use Core\Csrf;
+    use Core\Validator;
+    use App\Model\User;
     class AuthController
     {
 
@@ -28,14 +30,14 @@
             }
             $user = new User();
 
-            $existingUser = $user->findByEmail($email);
+            $existingUser = $user->findByEmail($data['email']);
 
             if($existingUser){
                 $errors[] = "This email is already registered";
                 require_once __DIR__ . '/../View/auth/register.php';
                 return;
             }
-                $user->register($name, $email, $password);
+                $user->register($data['name'], $data['email'], $data['password']);
                 header('Location:/PHP_Review/Public/auth/login');
                 exit;
 

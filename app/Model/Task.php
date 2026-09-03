@@ -1,7 +1,9 @@
 <?php
     namespace App\Model;
-require_once  __DIR__ . "/../../core/Database.php";
-
+    use Core\Database;
+    use PDOException;
+    use Exception;
+    use PDO;
 class Task
 {
     private PDO $pdo;

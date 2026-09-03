@@ -4,7 +4,6 @@
     use App\Middleware\AuthMiddleware;
     use Core\Validator;
     use Core\Csrf;
-require_once __DIR__ . '/../Model/Task.php';
 class TaskController
 {
     public function index(): void

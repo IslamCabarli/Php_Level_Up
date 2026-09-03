@@ -1,13 +1,13 @@
 <?php
+    require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
+
+    use Core\Router;
+    use Core\Csrf;
+    use App\Controller\TaskController;
+    use App\Controller\AuthController;
 require_once '../core/helpers.php';
-require_once '../core/Router.php';
 
-require_once '../core/Validator.php';
-require_once "../core/Csrf.php";
-
-require_once __DIR__ . '/../app/Controller/TaskController.php';
-require_once __DIR__ . '/../app/Controller/AuthController.php';
 
 Csrf::generateToken();
 

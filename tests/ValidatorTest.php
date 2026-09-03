@@ -33,4 +33,18 @@
                 ]);
             $this->assertNotEmpty($errors);
         }
+
+
+        public function testEmail(): void
+        {
+            $data = [
+                'email' => 'ramil@',
+            ];
+            $errors = Validator::validate($data,
+                    [
+                       'email' => ['email'],
+                    ]);
+
+            $this->assertNotEmpty($errors);
+        }
     }

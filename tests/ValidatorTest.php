@@ -19,4 +19,18 @@
 
             $this->assertNotEmpty($errors);
         }
+
+        public function testMinLength (): void
+        {
+            $data = [
+                'title' => 'oxa',
+                'description' => 'salam',
+            ];
+            $errors = Validator::validate($data,
+                [
+                    'title' => ['min:4'],
+                    'description' => ['min:6'],
+                ]);
+            $this->assertNotEmpty($errors);
+        }
     }

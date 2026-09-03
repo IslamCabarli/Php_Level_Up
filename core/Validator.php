@@ -1,4 +1,5 @@
 <?php
+    namespace Core;
 class Validator
 {
     public static function required(string $value, string $field): ?string

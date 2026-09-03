@@ -1,4 +1,5 @@
 <?php
+    namespace Core;
     require_once __DIR__ . '/../app/Controller/ErrorController.php';
     require_once __DIR__ . '/../app/Middleware/AuthMiddleware.php';
 class Router

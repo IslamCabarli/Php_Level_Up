@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . '/../core/Validator.php';
+    use Core\Validator;
     use PHPUnit\Framework\TestCase;
     class ValidatorTest extends TestCase
     {

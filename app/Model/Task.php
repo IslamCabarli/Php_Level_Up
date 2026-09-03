@@ -1,5 +1,7 @@
 <?php
+    namespace App\Model;
 require_once  __DIR__ . "/../../core/Database.php";
+
 class Task
 {
     private PDO $pdo;

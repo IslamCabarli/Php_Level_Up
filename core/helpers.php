@@ -1,4 +1,5 @@
 <?php
+    namespace Core;
     function abort(int $code): never
     {
         http_response_code($code);

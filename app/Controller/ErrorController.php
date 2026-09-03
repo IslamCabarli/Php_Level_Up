@@ -1,4 +1,5 @@
 <?php
+    namespace App\Controller;
     class ErrorController
     {
         public function show(int $code): void

@@ -1,3 +1,6 @@
+<?php
+    use Core\Csrf;
+    ?>
 <form method="POST" action="/PHP_Review/Public/tasks">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(Csrf::generateToken()); ?>" />
 

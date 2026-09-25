@@ -1,17 +1,14 @@
 <?php
     namespace App\Model;
-    use Core\Database;
+    use PDO;
     use PDOException;
     use Exception;
-    use PDO;
 class Task
 {
     private PDO $pdo;
-    public function __construct()
+        public function __construct(PDO $pdo)
     {
-        $db = new Database();
-
-        $this->pdo = $db->getPDO();
+            $this->pdo = $pdo;
     }
 
     public function getTasks(int $userId): array

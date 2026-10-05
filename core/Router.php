@@ -63,7 +63,7 @@ class Router
                 $handler = $route['handler'];
 
                 if (is_callable($handler)) {
-                    $handler();
+                    $handler(...array_slice($matches, 1));
                     return;
                 }
 

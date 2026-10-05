@@ -4,6 +4,8 @@ session_start();
 
     use Core\Router;
     use Core\Csrf;
+    use Core\Database;
+    use App\Model\Task;
     use App\Controller\TaskController;
     use App\Controller\AuthController;
 require_once '../core/helpers.php';
@@ -23,15 +25,16 @@ set_exception_handler(function (Throwable $exception): void {
 });
 
 $router = new Router();
+$taskController = new TaskController(new Task((new Database())->getPDO()));
 $router->get('/', function () {
     echo "Welcome to the default index route!";
 });
-$router->get('/tasks', [TaskController::class, 'index'], true);
-$router->get('/tasks/create', [TaskController::class, 'create'], true);
-$router->post('/tasks', [TaskController::class, 'store'], true);
-$router->get('/tasks/edit/{id}', [TaskController::class, 'edit'], true);
-$router->post('/tasks/update/{id}', [TaskController::class, 'update'], true);
-$router->post('/tasks/delete/{id}', [TaskController::class, 'delete'], true);
+$router->get('/tasks', [$taskController, 'index'], true);
+$router->get('/tasks/create', [$taskController, 'create'], true);
+$router->post('/tasks', [$taskController, 'store'], true);
+$router->get('/tasks/edit/{id}', [$taskController, 'edit'], true);
+$router->post('/tasks/update/{id}', [$taskController, 'update'], true);
+$router->post('/tasks/delete/{id}', [$taskController, 'delete'], true);
 
 $router->get('/auth/login', [AuthController::class, 'showLogin']);
 $router->post('/auth/login', [AuthController::class, 'login']);

@@ -26,6 +26,7 @@ set_exception_handler(function (Throwable $exception): void {
 
 $router = new Router();
 $taskController = new TaskController(new Task((new Database())->getPDO()));
+$authController = new AuthController();
 $router->get('/', function () {
     echo "Welcome to the default index route!";
 });
@@ -36,10 +37,10 @@ $router->get('/tasks/edit/{id}', [$taskController, 'edit'], true);
 $router->post('/tasks/update/{id}', [$taskController, 'update'], true);
 $router->post('/tasks/delete/{id}', [$taskController, 'delete'], true);
 
-$router->get('/auth/login', [AuthController::class, 'showLogin']);
-$router->post('/auth/login', [AuthController::class, 'login']);
-$router->get('/auth/register', [AuthController::class, 'showRegister']);
-$router->post('/auth/register', [AuthController::class, 'register']);
-$router->post('/auth/logout', [AuthController::class, 'logout'], true);
+$router->get('/auth/login', [$authController, 'showLogin']);
+$router->post('/auth/login', [$authController, 'login']);
+$router->get('/auth/register', [$authController, 'showRegister']);
+$router->post('/auth/register', [$authController, 'register']);
+$router->post('/auth/logout', [$authController, 'logout'], true);
 
 $router->dispatch();

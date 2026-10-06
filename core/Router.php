@@ -71,12 +71,14 @@ class Router
 
                     [$controller, $method] = $handler;
 
+                    $controllerInstance = new $controller();
+
                     if(isset($matches[1])){
-                        $controller->$method($matches[1]);
+                        $controllerInstance->$method($matches[1]);
                     }
                     else
                     {
-                        $controller->$method();
+                        $controllerInstance->$method();
                     }
 
                     return;

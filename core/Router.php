@@ -68,14 +68,15 @@ class Router
                 }
 
                 if (is_array($handler)) {
+
                     [$controller, $method] = $handler;
-                    $controllerInstance = new $controller();
+
                     if(isset($matches[1])){
-                        $controllerInstance->$method($matches[1]);
+                        $controller->$method($matches[1]);
                     }
                     else
                     {
-                        $controllerInstance->$method();
+                        $controller->$method();
                     }
 
                     return;

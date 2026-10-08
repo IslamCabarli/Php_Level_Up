@@ -10,7 +10,6 @@ class Router
         $this->addRoute('GET', $path, $handler, $auth);
     }
 
-    // Register a POST route
     public function post(string $path, callable|array $handler, bool $auth = false ): void
     {
         $this->addRoute('POST', $path, $handler, $auth);
@@ -68,18 +67,9 @@ class Router
                 }
 
                 if (is_array($handler)) {
-
                     [$controller, $method] = $handler;
 
-                    $controllerInstance = new $controller();
-
-                    if(isset($matches[1])){
-                        $controllerInstance->$method($matches[1]);
-                    }
-                    else
-                    {
-                        $controllerInstance->$method();
-                    }
+                    $handler(...array_slice($matches, 1));
 
                     return;
                 }
